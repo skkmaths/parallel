@@ -10,7 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
-def sumuptoN(dummy,integer):
+def sumuptoN(integer):
     sum = 0
     for i in range(integer+1):
         sum +=i
@@ -53,9 +53,11 @@ if __name__ == '__main__':
     number = 0
     while  number < args.number:
         number += 1
-        tasks.append((args.outputDir, number))
+        tasks.append([number])
     start = time.time()
+ 
     # Run tasks
+
     results = [pool.apply_async(sumuptoN, t) for t in tasks]
     # Process results
     for result in results:
@@ -70,7 +72,7 @@ if __name__ == '__main__':
     pool.join()
     start = time.time()
     for i in range(1,args.number+1):
-        sum = sumuptoN(args.outputDir,i)
+        sum = sumuptoN(i)
         #print('Sum is',sumuptoN(args.outputDir,i) )
     print('The sum is', sum)
     end = time.time()
