@@ -55,22 +55,23 @@ if __name__ == '__main__':
         number += 1
         tasks.append((args.outputDir, number))
     start = time.time()
-    for i in range(1,args.number+1):
-        print('Sum is',sumuptoN(args.outputDir,i) )
-    end = time.time()
-    print('execution time', end-start)
-
-    start = time.time()
     # Run tasks
     results = [pool.apply_async(sumuptoN, t) for t in tasks]
     # Process results
     for result in results:
         sum = result.get()
-        print("Result: sum is %d " % sum)
+    print('The sum is', sum)
+        #print("Result: sum is %d " % sum)
     end = time.time()
 
     print('execution time', end-start)
-
+    
     pool.close()
     pool.join()
-    
+    start = time.time()
+    for i in range(1,args.number+1):
+        sum = sumuptoN(args.outputDir,i)
+        #print('Sum is',sumuptoN(args.outputDir,i) )
+    print('The sum is', sum)
+    end = time.time()
+    print('execution time', end-start)
